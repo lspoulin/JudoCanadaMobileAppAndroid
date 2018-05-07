@@ -25,8 +25,8 @@ import java.util.Map;
 
 public class ApiManager {
 
-    public static final String BASE_URL = "http://judocanada.org/";
-    public static final String POST_ENDPOINT = "wp-json/wp/v2/posts";
+    public static final String BASE_URL = "http://judocanada.org/wp-json/";
+    public static final String POST_ENDPOINT = "wp/v2/posts";
 
     public static String getPostURL(){
         return BASE_URL+POST_ENDPOINT;
