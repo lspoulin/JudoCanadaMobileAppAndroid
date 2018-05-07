@@ -5,4 +5,5 @@ package org.judocanada.judocanadamobileappandroid;
  */
 
 interface CallBack {
+    void methodToCallBack(Object object);
 }
