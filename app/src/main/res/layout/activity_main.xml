@@ -7,8 +7,6 @@ android:layout_height="match_parent"
 tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
 
 <LinearLayout
-
-
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
@@ -17,8 +15,8 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
 
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
-        android:layout_height="75dp"
-        android:layout_weight="0.20"
+        android:layout_height="30dp"
+        android:layout_weight="0.075"
         android:layout_width="match_parent">
 
         <TextView
@@ -27,7 +25,7 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:layout_weight="0.90"
+            android:layout_weight="0.95"
             android:fontFamily="sans-serif"
             android:text="@string/app_name"
             android:textAlignment="textStart"
@@ -41,12 +39,12 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
             android:id="@+id/btnUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:scaleType="fitCenter"
             android:layout_marginTop="10dp"
-            android:layout_weight="0.10"
+            android:layout_weight="0.05"
             android:background="@color/colorPrimary"
-            app:srcCompat="@drawable/usercinqante"
-            android:layout_marginRight="20dp" />
+            app:srcCompat="@drawable/logo"
+             />
 
     </LinearLayout>
 
@@ -55,8 +53,8 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
 
         android:background="@color/colorAccentDark"
         android:orientation="horizontal"
-        android:layout_height="50dp"
-        android:layout_weight="0.10"
+        android:layout_height="10dp"
+        android:layout_weight="0.075"
         android:layout_width="match_parent">
 
 
@@ -95,17 +93,15 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
     <ListView
         android:id="@+id/listPosts"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_weight="0.50"/>
+        android:layout_height="0dp"
+        android:layout_weight="0.80"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.15"
+        android:layout_height="20dp"
+        android:layout_weight="0.075"
         android:orientation="horizontal">
-
-
         <ImageButton
             android:id="@+id/btnPref"
             android:layout_width="wrap_content"
@@ -113,14 +109,14 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
             android:layout_marginTop="10dp"
             android:layout_weight="0.333"
             android:background="@color/colorPrimary"
-            app:srcCompat="@drawable/pref" />
+            app:srcCompat="@drawable/news" />
 
         <ImageButton
             android:id="@+id/btnFav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.333"
-            app:srcCompat="@drawable/fav"
+            app:srcCompat="@drawable/stats"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimary"/>
 
@@ -129,16 +125,16 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.333"
-            app:srcCompat="@drawable/srch"
+            app:srcCompat="@drawable/video"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimary"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="10dp"
         android:background="@color/colorPrimary"
-        android:layout_weight="0.5"
+        android:layout_weight="0.05"
         android:orientation="horizontal">
 
         <TextView
@@ -148,7 +144,7 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="0.333"
-            android:text="@string/preferences"
+            android:text="@string/news_feed"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
@@ -160,7 +156,7 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="0.333"
-            android:text="@string/favorite"
+            android:text="@string/stats"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
@@ -172,7 +168,7 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="0.333"
-            android:text="@string/search"
+            android:text="@string/video"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textStyle="bold" />

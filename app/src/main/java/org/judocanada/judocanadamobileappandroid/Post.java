@@ -18,20 +18,20 @@ class Post implements Mappable, Parcelable{
     private String dateGMT;
     private String title;
     private String content;
-    private String exerpt;
+    private String excerpt;
 
 
     public Post(){
 
     }
 
-    public Post(int id, String title, String content, String exerpt, String date, String dateGMT){
+    public Post(int id, String title, String content, String excerpt, String date, String dateGMT){
         this.id = id;
         this.title = title;
         this.date = date;
         this.dateGMT = dateGMT;
         this.content = content;
-        this.exerpt = exerpt;
+        this.excerpt = excerpt;
     }
 
 
@@ -75,12 +75,12 @@ class Post implements Mappable, Parcelable{
         this.content = content;
     }
 
-    public String getExerpt() {
-        return exerpt;
+    public String getExcerpt() {
+        return excerpt;
     }
 
-    public void setExerpt(String exerpt) {
-        this.exerpt = exerpt;
+    public void setExcerpt(String excerpt) {
+        this.excerpt = excerpt;
     }
 
 
@@ -93,7 +93,7 @@ class Post implements Mappable, Parcelable{
             dateGMT = object.getString("date_gmt");
             title = object.getJSONObject("title").getString("rendered");
             content = object.getJSONObject("content").getString("rendered");
-            exerpt = object.getJSONObject("exerpt").getString("rendered");
+            excerpt = object.getJSONObject("excerpt").getString("rendered");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -115,7 +115,7 @@ class Post implements Mappable, Parcelable{
         parcel.writeInt(id);
         parcel.writeString(title);
         parcel.writeString(content);
-        parcel.writeString(exerpt);
+        parcel.writeString(excerpt);
         parcel.writeString(date);
         parcel.writeString(dateGMT);
     }
@@ -128,7 +128,7 @@ class Post implements Mappable, Parcelable{
             post.setId(parcel.readInt());
             post.setTitle(parcel.readString());
             post.setContent(parcel.readString());
-            post.setExerpt(parcel.readString());
+            post.setExcerpt(parcel.readString());
             post.setDate(parcel.readString());
             post.setDateGMT(parcel.readString());
 

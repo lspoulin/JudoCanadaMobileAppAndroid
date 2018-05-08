@@ -3,6 +3,7 @@ package org.judocanada.judocanadamobileappandroid;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         posts = new ArrayList<Post>();
         apiHelper = new ApiHelper();
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
             Post p = posts.get(i);
             title.setText(p.getTitle());
-            exerpt.setText(p.getExerpt());
+            exerpt.setText((Html.fromHtml(p.getExcerpt())));
             return view;
         }
     }

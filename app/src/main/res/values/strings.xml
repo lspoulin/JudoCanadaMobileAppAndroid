@@ -5,4 +5,7 @@
     <string name="favorite">Favorites</string>
     <string name="search">Search</string>
     <string name="sort_by">Sort by</string>
+    <string name="news_feed">News Feed</string>
+    <string name="stats">Statistics</string>
+    <string name="video">Tournaments</string>
 </resources>
