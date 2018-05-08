@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Post> posts;
     private CustomAdapter customAdapter;
     private ApiHelper apiHelper;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         posts = new ArrayList<Post>();
         apiHelper = new ApiHelper();
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mainListView = (ListView) findViewById(R.id.listPosts);
         customAdapter = new CustomAdapter();
         mainListView.setAdapter(customAdapter);
@@ -40,9 +42,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        progressBar.setVisibility(View.VISIBLE);
         apiHelper.getPosts(this, new Callback() {
             @Override
             public void methodToCallBack(Object object) {
+                progressBar.setVisibility(View.GONE);
                 if(object == null) return;
                 ArrayList<Post> tempsPosts = ((ArrayList<Post>) object);
                 if (posts == null) return;
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return posts.get(i).getId();
         }
 
         @Override

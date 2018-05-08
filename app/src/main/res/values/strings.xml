@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Judo Canada Mobile App</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="preferences">Preferences</string>
+    <string name="favorite">Favorites</string>
+    <string name="search">Search</string>
+    <string name="sort_by">Sort by</string>
 </resources>
