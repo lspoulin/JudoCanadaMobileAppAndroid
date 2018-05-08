@@ -1,8 +1,6 @@
 package org.judocanada.judocanadamobileappandroid;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Parcelable;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -13,28 +11,35 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by lspoulin on 2018-05-07.
  */
 
-public class ApiManager {
+public class ApiManager <T extends Mappable>{
 
     public static final String BASE_URL = "http://judocanada.org/wp-json/";
     public static final String POST_ENDPOINT = "wp/v2/posts";
+
+    // This is a convoluted way to create instances of the template type
+    private final Constructor<? extends T> ctor;
+
+    private T field;
+
+    ApiManager(Class<? extends T> impl) throws NoSuchMethodException {
+        this.ctor = impl.getConstructor();
+    }
 
     public static String getPostURL(){
         return BASE_URL+POST_ENDPOINT;
     }
 
-    public void getPosts(final Context context, final CallBack callBack){
-
-        StringRequest requete = new StringRequest(Request.Method.GET, getPostURL(),
+    public void getReturnMappableArray(String url, final Context context, final Callback callBack){
+        StringRequest requete = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -42,16 +47,20 @@ public class ApiManager {
                             Log.d("RESULTAT", response);
                             int i;
                             JSONArray jsonResponse = new JSONArray(response);
-                            ArrayList<Post> posts = new ArrayList<Post>();
-                            Post post = new Post();
-                            for(i=1;i<jsonResponse.length();i++) {
-                                post = new Post();
-                                post.mapJSON(jsonResponse.getJSONObject(i));
-                                posts.add(post);
+                            ArrayList<Mappable> objects = new ArrayList<Mappable>();
+                            for(i=0;i<jsonResponse.length();i++) {
+                                field = ctor.newInstance();
+                                field.mapJSON(jsonResponse.getJSONObject(i));
+                                objects.add(field);
                             }
-
-                            callBack.methodToCallBack(posts);
+                            callBack.methodToCallBack(objects);
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
                             e.printStackTrace();
                         }
                     }

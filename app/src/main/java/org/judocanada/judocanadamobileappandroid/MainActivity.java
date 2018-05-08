@@ -1,26 +1,22 @@
 package org.judocanada.judocanadamobileappandroid;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements CallBack{
+public class MainActivity extends AppCompatActivity {
     private ListView mainListView;
     private ArrayList<Post> posts;
     private CustomAdapter customAdapter;
+    private ApiHelper apiHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +24,7 @@ public class MainActivity extends AppCompatActivity implements CallBack{
         setContentView(R.layout.activity_main);
 
         posts = new ArrayList<Post>();
-        ApiManager api = new ApiManager();
-        api.getPosts(this, this);
+        apiHelper = new ApiHelper();
 
         mainListView = (ListView) findViewById(R.id.listPosts);
         customAdapter = new CustomAdapter();
@@ -37,22 +32,25 @@ public class MainActivity extends AppCompatActivity implements CallBack{
         mainListView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Intent intent;
                 intent  = new Intent(MainActivity.this, PostActivity.class);
-                intent.putExtra(PostActivity.POST, posts.get((int)id));
+
+                intent.putExtra(PostActivity.POST, posts.get(position));
                 startActivity(intent);
             }
         });
-    }
 
-    @Override
-    public void methodToCallBack(Object object) {
-        ArrayList<Post> tempsPosts = ((ArrayList<Post>) object);
-        if (posts == null) return;
+        apiHelper.getPosts(this, new Callback() {
+            @Override
+            public void methodToCallBack(Object object) {
+                if(object == null) return;
+                ArrayList<Post> tempsPosts = ((ArrayList<Post>) object);
+                if (posts == null) return;
 
-        posts = tempsPosts;
-        customAdapter.notifyDataSetChanged();
+                posts = tempsPosts;
+                customAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     class CustomAdapter extends BaseAdapter {
@@ -65,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements CallBack{
 
         @Override
         public Object getItem(int i) {
-            return null;
+            return posts.get(i);
         }
 
         @Override
