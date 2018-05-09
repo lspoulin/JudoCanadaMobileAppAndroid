@@ -69,24 +69,6 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
-        <Spinner
-            android:id="@+id/spnSort"
-            android:layout_width="129dp"
-            android:layout_height="23dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="0.70"
-            android:background="@android:color/white" />
-
-        <Switch
-            android:id="@+id/switchPref"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_weight="0.30"
-            android:text="@string/preferences"
-            android:textColor="@android:color/white"
-            android:textColorLink="?attr/colorPrimary" />
 
     </LinearLayout>
 
@@ -103,7 +85,7 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
         android:layout_weight="0.075"
         android:orientation="horizontal">
         <ImageButton
-            android:id="@+id/btnPref"
+            android:id="@+id/btnNews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -112,7 +94,7 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
             app:srcCompat="@drawable/news" />
 
         <ImageButton
-            android:id="@+id/btnFav"
+            android:id="@+id/btnStats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.333"
@@ -121,7 +103,7 @@ tools:context="org.judocanada.judocanadamobileappandroid.MainActivity">
             android:background="@color/colorPrimary"/>
 
         <ImageButton
-            android:id="@+id/btnSrch"
+            android:id="@+id/btnVideo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.333"

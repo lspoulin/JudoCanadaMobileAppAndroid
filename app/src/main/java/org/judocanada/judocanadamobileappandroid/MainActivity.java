@@ -1,6 +1,7 @@
 package org.judocanada.judocanadamobileappandroid;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -55,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
 
                 posts = tempsPosts;
                 customAdapter.notifyDataSetChanged();
+            }
+        });
+
+        ImageButton btnVideo = (ImageButton) findViewById(R.id.btnVideo);
+        btnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, VideoListActivity.class);
+                //intent.putExtra(VideoActivity.VIDEO_URI, "http://www.dailymotion.com/cdn/manifest/video/x54zekp.m3u8?auth=1525887292-2690-rx32dn5e-757871436f517bbfdbebfc8e3ead52fb");
+                startActivity(intent);
             }
         });
     }
