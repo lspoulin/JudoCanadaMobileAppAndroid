@@ -25,9 +25,9 @@ public class ApiManager <T extends Mappable>{
 
     public static final String BASE_URL = "http://judocanada.org/wp-json/";
     public static final String POST_ENDPOINT = "wp/v2/posts";
-    public static final String VIDEO_BASE_URL = "https://api.dailymotion.com";
+    public static final String VIDEO_BASE_URL = "https://api.dailymotion.com/";
     public static final String VIDEO_ENDPOINT = "/video/";
-    public static final String VIDEO_LIST_ENDPOINT = "/user/JudoCanada/videos";
+    public static final String VIDEO_LIST_ENDPOINT = "user/JudoCanada/videos";
 
 
     // This is a convoluted way to create instances of the template type
@@ -53,6 +53,7 @@ public class ApiManager <T extends Mappable>{
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Mappable value = null;
                         ArrayList<Mappable> objects = new ArrayList<Mappable>();
                         try {
                             Log.d("RESULTAT", response);
@@ -62,9 +63,9 @@ public class ApiManager <T extends Mappable>{
                             for(i=0;i<jsonResponse.length();i++) {
                                 field = ctor.newInstance();
                                 field.mapJSON(jsonResponse.getJSONObject(i));
-                                objects.add(field);
+                                value = field;
+                                objects.add(value);
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IllegalAccessException e) {
@@ -99,12 +100,14 @@ public class ApiManager <T extends Mappable>{
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Mappable callbackValue = null;
                         try {
                             Log.d("RESULTAT", response);
                             int i;
                             JSONObject jsonResponse = new JSONObject(response);
                             field = ctor.newInstance();
                             field.mapJSON(jsonResponse);
+                            callbackValue = field;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IllegalAccessException e) {
@@ -115,7 +118,7 @@ public class ApiManager <T extends Mappable>{
                             e.printStackTrace();
                         }
                         finally {
-                            callBack.methodToCallBack(field);
+                            callBack.methodToCallBack(callbackValue);
                         }
                     }
                 },

@@ -13,13 +13,13 @@ import java.util.Map;
 
 
 public class VideoActivity extends AppCompatActivity {
-    public static final String VIDEO = "org.judocanada.judocanadamobileappandroid.VideoActivity.VIDEOURI";
+    public static final String VIDEO = "org.judocanada.judocanadamobileappandroid.VideoActivity.VIDEO";
     private PlayerWebView videoView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-        
+
         Intent intent = getIntent();
         Video video = (Video)intent.getParcelableExtra(this.VIDEO);
 
