@@ -1,7 +1,9 @@
 package org.judocanada.judocanadamobileappandroid;
 
+import android.support.v4.app.Fragment;
 import android.content.Intent;
-import android.media.Image;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -16,91 +18,97 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView mainListView;
-    private ArrayList<Post> posts;
-    private CustomAdapter customAdapter;
-    private ApiHelper apiHelper;
-    private ProgressBar progressBar;
+    private static ProgressBar progressBar;
+    private List<Fragment> fragments;
+    private ImageButton btnVideo, btnStats, btnNews;
+    private TextView txtNews, txtVideo, txtStats;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fragments = new ArrayList<Fragment>();
+        fragments.add(new PostsFragment());
+        fragments.add(new VideoFragment());
+        fragments.add(new StatsFragment());
+
+        final int WHITE = ContextCompat.getColor(MainActivity.this, R.color.white);
+        final int GRAY = ContextCompat.getColor(MainActivity.this, R.color.darker_gray);
 
 
-        posts = new ArrayList<Post>();
-        apiHelper = new ApiHelper();
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mainListView = (ListView) findViewById(R.id.listPosts);
-        customAdapter = new CustomAdapter();
-        mainListView.setAdapter(customAdapter);
-        mainListView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent;
-                intent  = new Intent(MainActivity.this, PostActivity.class);
+        btnVideo = (ImageButton) findViewById(R.id.btnVideo);
+        btnStats = (ImageButton) findViewById(R.id.btnStats);
+        btnNews = (ImageButton) findViewById(R.id.btnNews);
 
-                intent.putExtra(PostActivity.POST, posts.get(position));
-                startActivity(intent);
-            }
-        });
+        txtNews = (TextView) findViewById(R.id.txtNews);
+        txtStats = (TextView) findViewById(R.id.txtStats);
+        txtVideo = (TextView) findViewById(R.id.txtVideo);
 
-        progressBar.setVisibility(View.VISIBLE);
-        apiHelper.getPosts(this, new Callback() {
-            @Override
-            public void methodToCallBack(Object object) {
-                progressBar.setVisibility(View.GONE);
-                if(object == null) return;
-                ArrayList<Post> tempsPosts = ((ArrayList<Post>) object);
-                if (posts == null) return;
-
-                posts = tempsPosts;
-                customAdapter.notifyDataSetChanged();
-            }
-        });
-
-        ImageButton btnVideo = (ImageButton) findViewById(R.id.btnVideo);
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, VideoListActivity.class);
-                //intent.putExtra(VideoActivity.VIDEO_URI, "http://www.dailymotion.com/cdn/manifest/video/x54zekp.m3u8?auth=1525887292-2690-rx32dn5e-757871436f517bbfdbebfc8e3ead52fb");
-                startActivity(intent);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFragment, fragments.get(1));
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.commit();
+                btnNews.setImageResource(R.drawable.news_grey);
+                btnStats.setImageResource(R.drawable.stats_grey);
+                btnVideo.setImageResource(R.drawable.video);
+                txtNews.setTextColor(GRAY);
+                txtStats.setTextColor(GRAY);
+                txtVideo.setTextColor(WHITE);
+            }
+        });
+
+        btnStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFragment, fragments.get(2));
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.commit();
+                btnNews.setImageResource(R.drawable.news_grey);
+                btnStats.setImageResource(R.drawable.stats);
+                btnVideo.setImageResource(R.drawable.video_grey);
+                txtNews.setTextColor(GRAY);
+                txtStats.setTextColor(WHITE);
+                txtVideo.setTextColor(GRAY);
+            }
+        });
+
+        btnNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFragment, fragments.get(0));
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.commit();
+                btnNews.setImageResource(R.drawable.news);
+                btnStats.setImageResource(R.drawable.stats_grey);
+                btnVideo.setImageResource(R.drawable.video_grey);
+                txtNews.setTextColor(WHITE);
+                txtStats.setTextColor(GRAY);
+                txtVideo.setTextColor(GRAY);
+
             }
         });
     }
 
-    class CustomAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-
-            return posts.size();
+    public static void showProgressBar(boolean visible){
+        if(progressBar == null) return;
+        if(visible){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else{
+            progressBar.setVisibility(View.GONE);
         }
 
-        @Override
-        public Object getItem(int i) {
-            return posts.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return posts.get(i).getId();
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.post_row, null);
-            TextView title = (TextView) view.findViewById(R.id.txtTitle);
-            TextView exerpt = (TextView) view.findViewById(R.id.txtExerpt);
-
-            Post p = posts.get(i);
-            title.setText(p.getTitle());
-            exerpt.setText((Html.fromHtml(p.getExcerpt())));
-            return view;
-        }
     }
+
 
 }

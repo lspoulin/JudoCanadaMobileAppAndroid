@@ -6,4 +6,6 @@
     <color name="colorAccentDark">#123c97</color>
     <color name="darkBackground">#000000</color>
     <color name="lightBackground">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="darker_gray">#AAA</color>
 </resources>

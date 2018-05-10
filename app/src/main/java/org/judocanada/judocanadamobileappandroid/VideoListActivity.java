@@ -27,7 +27,7 @@ public class VideoListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_list);
 
-        videoList = (ListView) findViewById(R.id.listVideos);
+        videoList = (ListView) findViewById(R.id.mainListView);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         videoArrayList = new ArrayList<Video>();
 

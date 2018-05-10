@@ -2,6 +2,7 @@ package org.judocanada.judocanadamobileappandroid;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -86,6 +87,8 @@ public class ApiManager <T extends Mappable>{
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, context.getResources().getString(R.string.no_internet_message), Toast.LENGTH_LONG).show();
+                        callBack.methodToCallBack(null);
                     }
                 }
         ) {};
@@ -125,6 +128,7 @@ public class ApiManager <T extends Mappable>{
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, context.getResources().getString(R.string.no_internet_message), Toast.LENGTH_LONG).show();
                         callBack.methodToCallBack(null);
                     }
                 }
