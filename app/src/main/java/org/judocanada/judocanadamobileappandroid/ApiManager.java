@@ -24,11 +24,9 @@ import java.util.ArrayList;
 
 public class ApiManager <T extends Mappable>{
 
-    public static final String BASE_URL = "http://judocanada.org/wp-json/";
-    public static final String POST_ENDPOINT = "wp/v2/posts";
-    public static final String VIDEO_BASE_URL = "https://api.dailymotion.com/";
-    public static final String VIDEO_ENDPOINT = "/video/";
+    public static final String POST_ENDPOINT = "posts";
     public static final String VIDEO_LIST_ENDPOINT = "user/JudoCanada/videos";
+    public static final String USER_ENDPOINT = "users/";
 
 
     // This is a convoluted way to create instances of the template type
@@ -41,12 +39,13 @@ public class ApiManager <T extends Mappable>{
     }
 
     public static String getPostURL(){
-        return BASE_URL+POST_ENDPOINT;
+        return BuildConfig.BASE_URL+POST_ENDPOINT;
     }
 
-    public static String getVideoURI(String id){return  "http://www.dailymotion.com/embed/video/"+id;}
+    public static String getUserURL(String id){return  BuildConfig.USER_BASE_URL+USER_ENDPOINT+id;}
+    public static String getUserURL(){return  BuildConfig.USER_BASE_URL+USER_ENDPOINT;}
 
-    public static String getVideoList(){return VIDEO_BASE_URL+VIDEO_LIST_ENDPOINT;}
+    public static String getVideoList(){return BuildConfig.VIDEO_BASE_URL+VIDEO_LIST_ENDPOINT;}
 
     public void getReturnMappableArray(String url, final Context context, final Callback callBack){
         field = null;

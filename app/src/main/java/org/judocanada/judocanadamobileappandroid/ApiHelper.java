@@ -9,11 +9,13 @@ import android.content.Context;
 public class ApiHelper {
     private ApiManager<Post> apiManagerPost;
     private ApiManager<VideoList> apiManagerVideo;
+    private ApiManager<User> apiManagerUser;
 
     public ApiHelper(){
         try {
             apiManagerPost = new ApiManager<Post>(Post.class);
             apiManagerVideo = new ApiManager<VideoList>(VideoList.class);
+            apiManagerUser = new ApiManager<User>(User.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -26,4 +28,10 @@ public class ApiHelper {
     public void getVideos(Context context, Callback callback){
         apiManagerVideo.getReturnMappable(ApiManager.getVideoList(), context, callback);
     }
+
+    public void getUser(Context context, Callback callback){
+        apiManagerUser.getReturnMappableArray(ApiManager.getUserURL(), context, callback);
+    }
+
+
 }

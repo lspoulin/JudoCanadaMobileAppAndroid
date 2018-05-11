@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class StatsFragment extends Fragment {
     private ListView mainListView;
     private ApiHelper apiHelper;
-    private ArrayList<Video> videos;
+    private ArrayList<User> users;
     private CustomAdapter customAdapter;
 
     public StatsFragment() {
@@ -41,26 +41,26 @@ public class StatsFragment extends Fragment {
                 Intent intent;
                 intent  = new Intent(getActivity(), VideoActivity.class);
 
-                intent.putExtra(VideoActivity.VIDEO, videos.get(position));
+                intent.putExtra(VideoActivity.VIDEO, users.get(position));
                 startActivity(intent);
             }
         });
-        videos = new ArrayList<Video>();
+        users = new ArrayList<User>();
         apiHelper = new ApiHelper();
         mainListView = (ListView) view.findViewById(R.id.mainListView);
         customAdapter = new CustomAdapter();
         mainListView.setAdapter(customAdapter);
 
         MainActivity.showProgressBar(true);
-        apiHelper.getVideos(getActivity(), new Callback() {
+        apiHelper.getUser(getActivity(), new Callback() {
             @Override
             public void methodToCallBack(Object object) {
                 MainActivity.showProgressBar(false);
                 if(object == null) return;
-                VideoList tempsVideos = (VideoList) object;
-                if (videos == null) return;
+                ArrayList<User> tempsUsers = (ArrayList<User>) object;
+                if (users == null) return;
 
-                videos = tempsVideos.getVideos();
+                users = tempsUsers;
                 customAdapter.notifyDataSetChanged();
             }
         });
@@ -73,12 +73,12 @@ public class StatsFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return videos.size();
+            return users.size();
         }
 
         @Override
         public Object getItem(int i) {
-            return videos.get(i);
+            return users.get(i);
         }
 
         @Override
@@ -92,9 +92,9 @@ public class StatsFragment extends Fragment {
             TextView title = (TextView) view.findViewById(R.id.txtTitle);
             TextView exerpt = (TextView) view.findViewById(R.id.txtExerpt);
 
-            Video v = videos.get(i);
-            title.setText(v.getTitle());
-            exerpt.setVisibility(View.GONE);
+            User user = users.get(i);
+            title.setText(user.getFirstname() + " " + user.getName());
+            exerpt.setText(user.getEmail());
             return view;
         }
     }

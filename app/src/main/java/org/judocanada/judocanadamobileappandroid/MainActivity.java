@@ -27,9 +27,21 @@ public class MainActivity extends AppCompatActivity {
         GRAY = ContextCompat.getColor(MainActivity.this, R.color.darker_gray);
 
         menubar = new HashMap<ImageButton, Menuitem>();
-        menubar.put((ImageButton) findViewById(R.id.btnNews), new Menuitem((TextView) findViewById(R.id.txtNews),new PostsFragment(), R.drawable.news, R.drawable.news_grey));
-        menubar.put((ImageButton) findViewById(R.id.btnStats), new Menuitem((TextView) findViewById(R.id.txtStats), new StatsFragment(), R.drawable.stats, R.drawable.stats_grey));
-        menubar.put((ImageButton) findViewById(R.id.btnVideo), new Menuitem((TextView) findViewById(R.id.txtVideo), new VideoFragment(), R.drawable.video, R.drawable.video_grey));
+        menubar.put((ImageButton) findViewById(R.id.btnNews),
+                new Menuitem((TextView) findViewById(R.id.txtNews),
+                        new PostsFragment(),
+                        R.drawable.news,
+                        R.drawable.news_grey));
+        menubar.put((ImageButton) findViewById(R.id.btnStats),
+                new Menuitem((TextView) findViewById(R.id.txtStats),
+                        new StatsFragment(),
+                        R.drawable.stats,
+                        R.drawable.stats_grey));
+        menubar.put((ImageButton) findViewById(R.id.btnVideo),
+                new Menuitem((TextView) findViewById(R.id.txtVideo),
+                        new VideoFragment(),
+                        R.drawable.video,
+                        R.drawable.video_grey));
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnVideo = (ImageButton) findViewById(R.id.btnVideo);
@@ -46,8 +58,7 @@ public class MainActivity extends AppCompatActivity {
         btnStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectButton((ImageButton) view);
-            }
+                selectButton((ImageButton) view);}
         });
 
         btnNews.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 selectButton((ImageButton) view);
             }
         });
+
     }
 
     private void selectButton(ImageButton button) {
@@ -79,12 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static void showProgressBar(boolean visible){
         if(progressBar == null) return;
-        if(visible){
-            progressBar.setVisibility(View.VISIBLE);
-        }
-        else{
-            progressBar.setVisibility(View.GONE);
-        }
+        progressBar.setVisibility((visible)?View.VISIBLE:View.GONE);
     }
 
     private class Menuitem{
