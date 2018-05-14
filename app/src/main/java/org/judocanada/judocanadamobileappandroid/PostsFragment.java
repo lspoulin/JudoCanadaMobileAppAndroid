@@ -12,9 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -94,10 +97,16 @@ public class PostsFragment extends Fragment {
             view = getLayoutInflater().inflate(R.layout.post_row, null);
             TextView title = (TextView) view.findViewById(R.id.txtTitle);
             TextView exerpt = (TextView) view.findViewById(R.id.txtExerpt);
+            ImageView image = (ImageView) view.findViewById(R.id.imgPost);
 
-            Post p = posts.get(i);
-            title.setText(p.getTitle());
-            exerpt.setText((Html.fromHtml(p.getExcerpt())));
+
+            Post post = posts.get(i);
+            title.setText(post.getTitle());
+            exerpt.setText((Html.fromHtml(post.getExcerpt())));
+            if(post.getImageList()!=null && post.getImageList().size()>0)
+                Picasso.get().load(post.getImageList().get(0)).into(image);
+            else
+                image.setVisibility(View.GONE);
             return view;
         }
     }

@@ -7,12 +7,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by lspoulin on 2018-05-07.
  */
 
 class Post implements Mappable, Parcelable{
+    private final String GET_URL_RE = "(http|ftp|https):[/][/]([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?";
+    private final String IS_IMAGE_RE = "^[^?]*\\.(jpg|jpeg|gif|png)";
+    private final String REMOVE_AHREF = "<a.*?</a>";
+
+    private List<String> imageList;
+
     private int id;
     private String date;
     private String dateGMT;
@@ -30,8 +40,20 @@ class Post implements Mappable, Parcelable{
         this.title = title;
         this.date = date;
         this.dateGMT = dateGMT;
-        this.content = content;
+        setContent(content);
         this.excerpt = excerpt;
+        this.imageList = getImageListFromContent(content);
+    }
+
+    private List<String> getImageListFromContent(String content) {
+        List<String> imageList = new ArrayList<String>();
+        Matcher m = Pattern.compile(GET_URL_RE)
+                .matcher(this.content);
+        while (m.find()) {
+            if (m.group().matches(IS_IMAGE_RE))
+                imageList.add(m.group());
+        }
+        return imageList;
     }
 
 
@@ -72,7 +94,7 @@ class Post implements Mappable, Parcelable{
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content.replaceAll(REMOVE_AHREF, "");
     }
 
     public String getExcerpt() {
@@ -81,6 +103,14 @@ class Post implements Mappable, Parcelable{
 
     public void setExcerpt(String excerpt) {
         this.excerpt = excerpt;
+    }
+
+    public List<String> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(List<String> imageList) {
+        this.imageList = imageList;
     }
 
 
@@ -92,8 +122,10 @@ class Post implements Mappable, Parcelable{
             date = object.getString("date");
             dateGMT = object.getString("date_gmt");
             title = object.getJSONObject("title").getString("rendered");
-            content = object.getJSONObject("content").getString("rendered");
+            content =object.getJSONObject("content").getString("rendered");
             excerpt = object.getJSONObject("excerpt").getString("rendered");
+            this.imageList = getImageListFromContent(content);
+            setContent(content);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -118,6 +150,7 @@ class Post implements Mappable, Parcelable{
         parcel.writeString(excerpt);
         parcel.writeString(date);
         parcel.writeString(dateGMT);
+        parcel.writeStringList(imageList);
     }
 
     public static final Parcelable.Creator<Post> CREATOR = new Creator<Post>() {
@@ -131,6 +164,9 @@ class Post implements Mappable, Parcelable{
             post.setExcerpt(parcel.readString());
             post.setDate(parcel.readString());
             post.setDateGMT(parcel.readString());
+            List<String> list = new ArrayList<String>();
+            parcel.readStringList(list);
+            post.setImageList(list );
 
             return post;
         }
