@@ -5,9 +5,11 @@
     <string name="favorite">Favorites</string>
     <string name="search">Search</string>
     <string name="sort_by">Sort by</string>
-    <string name="news_feed">News Feed</string>
+    <string name="news_feed">News</string>
     <string name="stats">Statistics</string>
-    <string name="video">Tournaments</string>
+    <string name="video">Video</string>
+    <string name="calendar">Calendar</string>
+    <string name="shop">Shop</string>
     <string name="no_internet_message">No Internet connection</string>
 
     <!-- TODO: Remove or change this placeholder text -->

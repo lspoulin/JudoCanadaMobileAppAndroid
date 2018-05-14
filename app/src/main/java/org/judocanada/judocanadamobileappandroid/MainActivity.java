@@ -13,7 +13,6 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private static ProgressBar progressBar;
-    private ImageButton btnVideo, btnStats, btnNews;
     private HashMap<ImageButton, Menuitem> menubar;
     private int WHITE, GRAY;
 
@@ -32,41 +31,35 @@ public class MainActivity extends AppCompatActivity {
                         new PostsFragment(),
                         R.drawable.news,
                         R.drawable.news_grey));
-        menubar.put((ImageButton) findViewById(R.id.btnStats),
-                new Menuitem((TextView) findViewById(R.id.txtStats),
+        menubar.put((ImageButton) findViewById(R.id.btnCalendar),
+                new Menuitem((TextView) findViewById(R.id.txtCalendar),
                         new StatsFragment(),
-                        R.drawable.stats,
-                        R.drawable.stats_grey));
+                        R.drawable.calendar,
+                        R.drawable.calendar_grey));
         menubar.put((ImageButton) findViewById(R.id.btnVideo),
                 new Menuitem((TextView) findViewById(R.id.txtVideo),
                         new VideoFragment(),
-                        R.drawable.video,
-                        R.drawable.video_grey));
+                        R.drawable.videojudo,
+                        R.drawable.videojudo_grey));
+        menubar.put((ImageButton) findViewById(R.id.btnShop),
+                new Menuitem((TextView) findViewById(R.id.txtShop),
+                        new StatsFragment(),
+                        R.drawable.boutique_icon,
+                        R.drawable.boutique_icon_grey));
+
+        for(ImageButton imageButton : menubar.keySet()){
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectButton((ImageButton) view);
+                }
+            });
+        }
+        selectButton((ImageButton) findViewById(R.id.btnNews));
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnVideo = (ImageButton) findViewById(R.id.btnVideo);
-        btnStats = (ImageButton) findViewById(R.id.btnStats);
-        btnNews = (ImageButton) findViewById(R.id.btnNews);
 
-        btnVideo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectButton((ImageButton) view);
-            }
-        });
 
-        btnStats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectButton((ImageButton) view);}
-        });
-
-        btnNews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectButton((ImageButton) view);
-            }
-        });
 
     }
 

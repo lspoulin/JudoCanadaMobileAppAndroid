@@ -62,7 +62,7 @@ android:layout_height="match_parent">
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="org.judocanada.judocanadamobileappandroid.PostsFragment"
+        android:name="org.judocanada.judocanadamobileappandroid.BlankFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.80"
@@ -79,16 +79,16 @@ android:layout_height="match_parent">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_weight="0.333"
+            android:layout_weight="0.25"
             android:background="@color/colorPrimary"
             app:srcCompat="@drawable/news" />
 
         <ImageButton
-            android:id="@+id/btnStats"
+            android:id="@+id/btnCalendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.333"
-            app:srcCompat="@drawable/stats_grey"
+            android:layout_weight="0.25"
+            app:srcCompat="@drawable/calendar_grey"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimary"/>
 
@@ -96,8 +96,17 @@ android:layout_height="match_parent">
             android:id="@+id/btnVideo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.333"
+            android:layout_weight="0.25"
             app:srcCompat="@drawable/video_grey"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"/>
+
+        <ImageButton
+            android:id="@+id/btnShop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            app:srcCompat="@drawable/boutique_icon_grey"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimary"/>
     </LinearLayout>
@@ -114,20 +123,20 @@ android:layout_height="match_parent">
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_weight="0.333"
+            android:layout_weight="0.25"
             android:text="@string/news_feed"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtStats"
+            android:id="@+id/txtCalendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_weight="0.333"
-            android:text="@string/stats"
+            android:layout_weight="0.25"
+            android:text="@string/calendar"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray"
             android:textStyle="bold" />
@@ -138,8 +147,19 @@ android:layout_height="match_parent">
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_weight="0.333"
+            android:layout_weight="0.25"
             android:text="@string/video"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtShop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.25"
+            android:text="@string/shop"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray"
             android:textStyle="bold" />
