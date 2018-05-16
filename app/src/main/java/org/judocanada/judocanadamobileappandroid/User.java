@@ -11,8 +11,27 @@ import org.json.JSONObject;
  */
 
 class User implements Mappable, Parcelable {
-    private int id;
+    private int id, judoCanadaId;
     private String name, firstname, email;
+
+    public static final String TABLE_NAME = "users";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_NAME= "name";
+    public static final String COLUMN_FIRSTNAME = "firstname";
+    public static final String COLUMN_EMAIL = "email";
+    public static final String COLUMN_DATEOFBIRTH = "dateofbirth";
+    public static final String COLUMN_JUDOCANADAID = "judocanadaid";
+
+    // Create table SQL query
+    public static final String CREATE_TABLE =
+            "CREATE TABLE " + TABLE_NAME + "("
+                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + COLUMN_NAME + " VARCHAR(50),"
+                    + COLUMN_FIRSTNAME + " VARCHAR(50),"
+                    + COLUMN_EMAIL + " VARCHAR(50),"
+                    + COLUMN_DATEOFBIRTH + " VARCHAR(50),"
+                    + COLUMN_JUDOCANADAID + " INTEGER,"
+                    + ")";
 
     public User(){
 
@@ -55,6 +74,14 @@ class User implements Mappable, Parcelable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getJudoCanadaId() {
+        return judoCanadaId;
+    }
+
+    public void setJudoCanadaId(int judoCanadaId) {
+        this.judoCanadaId = judoCanadaId;
     }
 
     @Override

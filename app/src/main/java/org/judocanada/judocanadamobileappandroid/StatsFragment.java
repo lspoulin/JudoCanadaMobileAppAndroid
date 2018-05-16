@@ -46,7 +46,7 @@ public class StatsFragment extends Fragment {
             }
         });
         users = new ArrayList<User>();
-        apiHelper = new ApiHelper();
+        apiHelper = new ApiHelper(getActivity().getApplicationContext());
         mainListView = (ListView) view.findViewById(R.id.mainListView);
         customAdapter = new CustomAdapter();
         mainListView.setAdapter(customAdapter);

@@ -11,26 +11,26 @@ public class ApiHelper {
     private ApiManager<VideoList> apiManagerVideo;
     private ApiManager<User> apiManagerUser;
 
-    public ApiHelper(){
+    public ApiHelper(Context context){
         try {
-            apiManagerPost = new ApiManager<Post>(Post.class);
-            apiManagerVideo = new ApiManager<VideoList>(VideoList.class);
-            apiManagerUser = new ApiManager<User>(User.class);
+            apiManagerPost = new ApiManager<Post>(Post.class, context);
+            apiManagerVideo = new ApiManager<VideoList>(VideoList.class, context);
+            apiManagerUser = new ApiManager<User>(User.class, context);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
     }
 
     public void getPosts(Context context, Callback callBack){
-        apiManagerPost.getReturnMappableArray(ApiManager.getPostURL(),context, callBack);
+        apiManagerPost.getReturnMappableArray(ApiManager.getPostURL(), callBack);
     }
 
     public void getVideos(Context context, Callback callback){
-        apiManagerVideo.getReturnMappable(ApiManager.getVideoList(), context, callback);
+        apiManagerVideo.getReturnMappable(ApiManager.getVideoList(), callback);
     }
 
     public void getUser(Context context, Callback callback){
-        apiManagerUser.getReturnMappableArray(ApiManager.getUserURL(), context, callback);
+        apiManagerUser.getReturnMappableArray(ApiManager.getUserURL(), callback);
     }
 
 

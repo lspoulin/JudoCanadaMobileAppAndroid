@@ -23,18 +23,19 @@ import java.util.ArrayList;
  */
 
 public class ApiManager <T extends Mappable>{
-
     public static final String POST_ENDPOINT = "posts";
     public static final String VIDEO_LIST_ENDPOINT = "user/JudoCanada/videos";
     public static final String USER_ENDPOINT = "users/";
+    public static final String VIDEO_THUMBNAIL_ENDPOINT = "thumbnail/video/";
 
 
     // This is a convoluted way to create instances of the template type
     private final Constructor<? extends T> ctor;
-
+    private Context context;
     private T field;
 
-    ApiManager(Class<? extends T> impl) throws NoSuchMethodException {
+    ApiManager(Class<? extends T> impl, Context context) throws NoSuchMethodException {
+        this.context = context;
         this.ctor = impl.getConstructor();
     }
 
@@ -47,7 +48,11 @@ public class ApiManager <T extends Mappable>{
 
     public static String getVideoList(){return BuildConfig.VIDEO_BASE_URL+VIDEO_LIST_ENDPOINT;}
 
-    public void getReturnMappableArray(String url, final Context context, final Callback callBack){
+    public static String getThumbnailURL(String id) {
+        return BuildConfig.DAILYMOTION_BASE_URL + VIDEO_THUMBNAIL_ENDPOINT+id;
+    }
+
+    public void getReturnMappableArray(String url, final Callback callBack){
         field = null;
         StringRequest requete = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -96,7 +101,7 @@ public class ApiManager <T extends Mappable>{
     }
 
 
-    public void getReturnMappable(String url, final Context context, final Callback callBack){
+    public void getReturnMappable(String url, final Callback callBack){
         field = null;
         StringRequest requete = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -133,10 +138,7 @@ public class ApiManager <T extends Mappable>{
                 }
         ) {};
         Volley.newRequestQueue(context).add(requete);
-
     }
-
-
 
 
 }

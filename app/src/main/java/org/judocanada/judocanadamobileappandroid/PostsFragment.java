@@ -50,7 +50,7 @@ public class PostsFragment extends Fragment {
             }
         });
         posts = new ArrayList<Post>();
-        apiHelper = new ApiHelper();
+        apiHelper = new ApiHelper(getActivity().getApplicationContext());
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mainListView = (ListView) view.findViewById(R.id.mainListView);
         customAdapter = new  CustomAdapter();
