@@ -33,5 +33,9 @@ public class ApiHelper {
         apiManagerUser.getReturnMappableArray(ApiManager.getUserURL(), callback);
     }
 
+    public void postUser(User user, Context context, Callback callback){
+        apiManagerUser.postReturnId(ApiManager.getUserURL(),context, callback, user);
+    }
+
 
 }

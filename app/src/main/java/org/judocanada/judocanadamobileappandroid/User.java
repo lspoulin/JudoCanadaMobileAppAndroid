@@ -12,13 +12,14 @@ import org.json.JSONObject;
 
 class User implements Mappable, Parcelable {
     private int id, judoCanadaId;
-    private String name, firstname, email, username, dateofbirth;
+    private String name, firstname, email, username, dateofbirth, password;
 
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME= "name";
     public static final String COLUMN_FIRSTNAME = "firstname";
     public static final String COLUMN_EMAIL = "email";
+    public static final String COLUMN_PASSWORD = "password";
     public static final String COLUMN_DATEOFBIRTH = "dateofbirth";
     public static final String COLUMN_JUDOCANADAID = "judocanadaid";
 
@@ -29,6 +30,7 @@ class User implements Mappable, Parcelable {
                     + COLUMN_NAME + " VARCHAR(50),"
                     + COLUMN_FIRSTNAME + " VARCHAR(50),"
                     + COLUMN_EMAIL + " VARCHAR(50),"
+                    + COLUMN_PASSWORD + " VARCHAR(50),"
                     + COLUMN_DATEOFBIRTH + " VARCHAR(50),"
                     + COLUMN_JUDOCANADAID + " INTEGER,"
                     + ")";
@@ -100,6 +102,14 @@ class User implements Mappable, Parcelable {
         this.dateofbirth = dateofbirth;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public void mapJSON(JSONObject object) {
         try {
@@ -107,7 +117,8 @@ class User implements Mappable, Parcelable {
             name = object.getString("name");
             firstname = object.getString("firstname");
             email = object.getString("email");
-            //username = object.getString("username");
+            judoCanadaId = object.getInt("judocanadaid");
+            dateofbirth = object.getString("dateofbirth");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -117,7 +128,16 @@ class User implements Mappable, Parcelable {
 
     @Override
     public String toJSON() {
-        return null;
+        StringBuilder json = new StringBuilder();
+        json.append("{");
+        json.append("\"" + COLUMN_NAME + "\":\"" + name + "\",");
+        json.append("\"" + COLUMN_FIRSTNAME + "\":\"" + firstname + "\",");
+        json.append("\"" + COLUMN_EMAIL + "\":\"" + email + "\",");
+        json.append("\"" + COLUMN_DATEOFBIRTH + "\":\"" + dateofbirth + "\",");
+        json.append("\"" + COLUMN_JUDOCANADAID + "\":\"" + judoCanadaId + "\"");
+        json.append("}");
+
+        return json.toString();
     }
 
     @Override
@@ -132,6 +152,8 @@ class User implements Mappable, Parcelable {
         parcel.writeString(firstname);
         parcel.writeString(email);
         parcel.writeString(username);
+        parcel.writeString(dateofbirth);
+        parcel.writeInt(judoCanadaId);
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Creator<User>() {
@@ -144,6 +166,8 @@ class User implements Mappable, Parcelable {
             user.setFirstname(parcel.readString());
             user.setEmail(parcel.readString());
             user.setUsername(parcel.readString());
+            user.setDateofbirth(parcel.readString());
+            user.setJudoCanadaId(parcel.readInt());
 
             return user;
         }

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
     private final static String VALID_USERNAME = "/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/";
@@ -82,14 +83,26 @@ public class LoginActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User user = new User();
-                user.setUsername(name.getText().toString());
+                final User user = new User();
+                user.setName(name.getText().toString());
                 user.setFirstname(firstname.getText().toString());
+                user.setPassword(password.getText().toString());
                 user.setEmail(email.getText().toString());
                 user.setDateofbirth(dateofBirth.getText().toString());
                 user.setJudoCanadaId(Integer.parseInt(judoid.getText().toString()));
                 UserManager.getInstance().setUser(user);
                 UserManager.getInstance().saveUserToPreferences(getApplicationContext());
+                ApiHelper api = new ApiHelper(getApplicationContext());
+                api.postUser(user, getApplicationContext(), new Callback() {
+                    @Override
+                    public void methodToCallBack(Object object) {
+                        if (object!=null){
+                            int id = Integer.parseInt(object.toString());
+                            user.setId(id);
+                        }
+                    }
+                });
+
                 Intent result;
                 result= new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(result);

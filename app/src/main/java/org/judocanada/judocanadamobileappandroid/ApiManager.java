@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -138,6 +139,38 @@ public class ApiManager <T extends Mappable>{
                 }
         ) {};
         Volley.newRequestQueue(context).add(requete);
+    }
+
+    public void postReturnId(String url, Context context,  final Callback callBack, Mappable mappable){
+        try{
+            final JSONObject jsonBody = new JSONObject(mappable.toJSON());
+
+            JsonObjectRequest requete = new JsonObjectRequest(url, jsonBody, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    String resp = "";
+                    try {
+                        resp = response.get("id").toString();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    finally {
+                        callBack.methodToCallBack(resp);
+                    }
+
+                }
+            },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            callBack.methodToCallBack(null);
+                        }
+                    }
+            ) {};
+            Volley.newRequestQueue(context).add(requete);
+        }catch(Exception e){}
+
     }
 
 
