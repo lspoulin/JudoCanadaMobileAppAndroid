@@ -1,12 +1,21 @@
 package org.judocanada.judocanadamobileappandroid;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
+    private final static String VALID_USERNAME = "/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/";
 
     private EditText name, firstname, email, password, confirm, dateofBirth, judoid, loginemail, loginpassword;
     private Button btnConfirm, btnLoginConfirm;
@@ -31,7 +40,99 @@ public class LoginActivity extends AppCompatActivity {
         loginpassword = (EditText) findViewById(R.id.editLoginPassword);
         btnLoginConfirm = (Button) findViewById(R.id.buttonLoginConfirm);
 
+        Button btnToLogin = (Button) findViewById(R.id.buttonToLogin);
+        btnToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userCreate.setVisibility(View.GONE);
+                userLogin.setVisibility(View.VISIBLE);
+            }
+        });
+
+        Button btnSignup = (Button) findViewById(R.id.buttonSignup);
+        btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userCreate.setVisibility(View.VISIBLE);
+                userLogin.setVisibility(View.GONE);
+            }
+        });
+
+        name.addTextChangedListener(new TextValidator(name) {
+            @Override
+            public void validate(TextView textView, String text) {
+
+            }
+        });
+
+        password.addTextChangedListener(new TextValidator(password) {
+            @Override
+            public void validate(TextView textView, String text) {
+
+            }
+        });
+
+        confirm.addTextChangedListener(new TextValidator(confirm) {
+            @Override
+            public void validate(TextView textView, String text) {
+
+            }
+        });
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User user = new User();
+                user.setUsername(name.getText().toString());
+                user.setFirstname(firstname.getText().toString());
+                user.setEmail(email.getText().toString());
+                user.setDateofbirth(dateofBirth.getText().toString());
+                user.setJudoCanadaId(Integer.parseInt(judoid.getText().toString()));
+                UserManager.getInstance().setUser(user);
+                UserManager.getInstance().saveUserToPreferences(getApplicationContext());
+                Intent result;
+                result= new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(result);
+                finish();
+            }
+        });
+
+        btnLoginConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User user = new User();
+                UserManager.getInstance().setUser(user);
+                UserManager.getInstance().saveUserToPreferences(getApplicationContext());
+                Intent result;
+                result= new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(result);
+                finish();
+            }
+        });
 
 
     }
+
+    public abstract class TextValidator implements TextWatcher {
+        private final TextView textView;
+
+        public TextValidator(TextView textView) {
+            this.textView = textView;
+        }
+
+        public abstract void validate(TextView textView, String text);
+
+        @Override
+        final public void afterTextChanged(Editable s) {
+            String text = textView.getText().toString();
+            validate(textView, text);
+        }
+
+        @Override
+        final public void beforeTextChanged(CharSequence s, int start, int count, int after) { /* Don't care */ }
+
+        @Override
+        final public void onTextChanged(CharSequence s, int start, int before, int count) { /* Don't care */ }
+    }
+
 }

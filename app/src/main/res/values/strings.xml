@@ -19,4 +19,6 @@
     <string name="login_date_of_birth">Date of Birth :</string>
     <string name="login_numero_judo_canada">Judo Canada # :</string>
     <string name="login_btn_confirm">Confirm</string>
+    <string name="login_btn_to_login">Login</string>
+    <string name="login_btn_to_signup">Sign up</string>
 </resources>

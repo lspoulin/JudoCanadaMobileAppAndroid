@@ -1,5 +1,6 @@
 package org.judocanada.judocanadamobileappandroid;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -12,9 +13,12 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
+
     private static ProgressBar progressBar;
     private HashMap<ImageButton, Menuitem> menubar;
     private int WHITE, GRAY;
+    public static final String PREFERENCES = "JudoCanadaApplicationPreferences";
+    public static final String PREFERENCES_USERNAME = "JudoCanadaApplicationPreferenceUserName";
 
 
     @Override
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         R.drawable.boutique_icon,
                         R.drawable.boutique_icon_grey));
 
-        for(ImageButton imageButton : menubar.keySet()){
+        for (ImageButton imageButton : menubar.keySet()) {
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -59,6 +63,17 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+        ImageButton logout = (ImageButton) findViewById(R.id.btnUser);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserManager.getInstance().deleteUserToPreferences(getApplicationContext());
+                Intent result;
+                result = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(result);
+                finish();
+            }
+        });
 
 
     }
@@ -66,14 +81,13 @@ public class MainActivity extends AppCompatActivity {
     private void selectButton(ImageButton button) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        for(ImageButton key :menubar.keySet()){
+        for (ImageButton key : menubar.keySet()) {
             Menuitem item = menubar.get(key);
-            if(key == button){
+            if (key == button) {
                 item.label.setTextColor(WHITE);
                 key.setImageResource(item.drawableSelected);
                 transaction.replace(R.id.mainFragment, item.fragment);
-            }
-            else {
+            } else {
                 item.label.setTextColor(GRAY);
                 key.setImageResource(item.drawableUnselected);
             }
@@ -82,16 +96,17 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    public static void showProgressBar(boolean visible){
-        if(progressBar == null) return;
-        progressBar.setVisibility((visible)?View.VISIBLE:View.GONE);
+    public static void showProgressBar(boolean visible) {
+        if (progressBar == null) return;
+        progressBar.setVisibility((visible) ? View.VISIBLE : View.GONE);
     }
 
-    private class Menuitem{
+    private class Menuitem {
         int drawableSelected, drawableUnselected;
         TextView label;
         Fragment fragment;
-        Menuitem(TextView label, Fragment fragment, int drawableSelected, int drawableUnselected){
+
+        Menuitem(TextView label, Fragment fragment, int drawableSelected, int drawableUnselected) {
             this.label = label;
             this.drawableSelected = drawableSelected;
             this.drawableUnselected = drawableUnselected;

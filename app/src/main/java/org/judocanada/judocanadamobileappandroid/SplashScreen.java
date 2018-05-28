@@ -1,6 +1,8 @@
 package org.judocanada.judocanadamobileappandroid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -27,7 +29,13 @@ public class SplashScreen extends AppCompatActivity {
 
     @Override
     public void finish(){
-        Intent result = new Intent(SplashScreen.this, MainActivity.class);
+        User user = UserManager.getInstance().getUser(this);
+
+        Intent result;
+        if(user != null)
+            result= new Intent(SplashScreen.this, MainActivity.class);
+        else
+            result= new Intent(SplashScreen.this, LoginActivity.class);
         startActivity(result);
         super.finish();
     }

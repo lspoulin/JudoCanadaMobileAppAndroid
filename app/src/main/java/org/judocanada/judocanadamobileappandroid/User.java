@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 class User implements Mappable, Parcelable {
     private int id, judoCanadaId;
-    private String name, firstname, email;
+    private String name, firstname, email, username, dateofbirth;
 
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_ID = "id";
@@ -80,8 +80,24 @@ class User implements Mappable, Parcelable {
         return judoCanadaId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public void setJudoCanadaId(int judoCanadaId) {
         this.judoCanadaId = judoCanadaId;
+    }
+
+    public String getDateofbirth() {
+        return dateofbirth;
+    }
+
+    public void setDateofbirth(String dateofbirth) {
+        this.dateofbirth = dateofbirth;
     }
 
     @Override
@@ -91,6 +107,7 @@ class User implements Mappable, Parcelable {
             name = object.getString("name");
             firstname = object.getString("firstname");
             email = object.getString("email");
+            //username = object.getString("username");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -114,6 +131,7 @@ class User implements Mappable, Parcelable {
         parcel.writeString(name);
         parcel.writeString(firstname);
         parcel.writeString(email);
+        parcel.writeString(username);
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Creator<User>() {
@@ -125,6 +143,7 @@ class User implements Mappable, Parcelable {
             user.setName(parcel.readString());
             user.setFirstname(parcel.readString());
             user.setEmail(parcel.readString());
+            user.setUsername(parcel.readString());
 
             return user;
         }

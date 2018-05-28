@@ -161,6 +161,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login_btn_confirm" />
+        <Button
+            android:id="@+id/buttonToLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_btn_to_login" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/userLogin"
@@ -217,5 +222,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login_btn_confirm" />
+
+        <Button
+            android:id="@+id/buttonSignup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_btn_to_signup" />
     </LinearLayout>
 </LinearLayout>
