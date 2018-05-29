@@ -10,12 +10,14 @@ public class ApiHelper {
     private ApiManager<Post> apiManagerPost;
     private ApiManager<VideoList> apiManagerVideo;
     private ApiManager<User> apiManagerUser;
+    private ApiManager<Event> apiManagerEvent;
 
     public ApiHelper(Context context){
         try {
             apiManagerPost = new ApiManager<Post>(Post.class, context);
             apiManagerVideo = new ApiManager<VideoList>(VideoList.class, context);
             apiManagerUser = new ApiManager<User>(User.class, context);
+            apiManagerEvent = new ApiManager<Event>(Event.class, context);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -35,6 +37,10 @@ public class ApiHelper {
 
     public void postUser(User user, Context context, Callback callback){
         apiManagerUser.postReturnId(ApiManager.getUserURL(),context, callback, user);
+    }
+
+    public void getEvents(Context context, Callback callback){
+        apiManagerEvent.getReturnMappableArray(ApiManager.getEventURL(), callback);
     }
 
 

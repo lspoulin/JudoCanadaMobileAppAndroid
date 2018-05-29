@@ -66,7 +66,7 @@ public class UserManager {
 
     public User getUser(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
-        String username = preferences.getString(USERNAME, "");
+        String username = preferences.getString(EMAIL, "");
         User user = null;
         if (!username.equals("")) {
             user = new User();

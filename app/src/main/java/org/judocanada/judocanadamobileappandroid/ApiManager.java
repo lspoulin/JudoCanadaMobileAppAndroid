@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,6 +28,7 @@ public class ApiManager <T extends Mappable>{
     public static final String POST_ENDPOINT = "posts";
     public static final String VIDEO_LIST_ENDPOINT = "user/JudoCanada/videos";
     public static final String USER_ENDPOINT = "users/";
+    public static final String EVENT_ENDPOINT = "events/";
     public static final String VIDEO_THUMBNAIL_ENDPOINT = "thumbnail/video/";
 
 
@@ -46,6 +48,8 @@ public class ApiManager <T extends Mappable>{
 
     public static String getUserURL(String id){return  BuildConfig.USER_BASE_URL+USER_ENDPOINT+id;}
     public static String getUserURL(){return  BuildConfig.USER_BASE_URL+USER_ENDPOINT;}
+
+    public static String getEventURL(){return  BuildConfig.USER_BASE_URL+EVENT_ENDPOINT;}
 
     public static String getVideoList(){return BuildConfig.VIDEO_BASE_URL+VIDEO_LIST_ENDPOINT;}
 
@@ -97,6 +101,10 @@ public class ApiManager <T extends Mappable>{
                     }
                 }
         ) {};
+        requete.setRetryPolicy(new DefaultRetryPolicy(
+                5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(context).add(requete);
 
     }

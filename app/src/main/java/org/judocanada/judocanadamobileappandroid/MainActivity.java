@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         R.drawable.news_grey));
         menubar.put((ImageButton) findViewById(R.id.btnCalendar),
                 new Menuitem((TextView) findViewById(R.id.txtCalendar),
-                        new StatsFragment(),
+                        new EventFragment(),
                         R.drawable.calendar,
                         R.drawable.calendar_grey));
         menubar.put((ImageButton) findViewById(R.id.btnVideo),
