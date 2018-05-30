@@ -1,4 +1,4 @@
-package org.judocanada.judocanadamobileappandroid;
+package org.judocanada.judocanadamobileappandroid.Model;
 
 import android.content.Context;
 import android.content.SharedPreferences;

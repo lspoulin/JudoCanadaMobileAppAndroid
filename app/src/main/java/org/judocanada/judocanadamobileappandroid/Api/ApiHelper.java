@@ -1,6 +1,11 @@
-package org.judocanada.judocanadamobileappandroid;
+package org.judocanada.judocanadamobileappandroid.Api;
 
 import android.content.Context;
+
+import org.judocanada.judocanadamobileappandroid.Model.Event;
+import org.judocanada.judocanadamobileappandroid.Model.Post;
+import org.judocanada.judocanadamobileappandroid.Model.User;
+import org.judocanada.judocanadamobileappandroid.Model.VideoList;
 
 /**
  * Created by lspoulin on 2018-05-08.
@@ -12,8 +17,10 @@ public class ApiHelper {
     private ApiManager<User> apiManagerUser;
     private ApiManager<Event> apiManagerEvent;
 
+
     public ApiHelper(Context context){
         try {
+
             apiManagerPost = new ApiManager<Post>(Post.class, context);
             apiManagerVideo = new ApiManager<VideoList>(VideoList.class, context);
             apiManagerUser = new ApiManager<User>(User.class, context);
@@ -42,6 +49,4 @@ public class ApiHelper {
     public void getEvents(Context context, Callback callback){
         apiManagerEvent.getReturnMappableArray(ApiManager.getEventURL(), callback);
     }
-
-
 }

@@ -1,4 +1,4 @@
-package org.judocanada.judocanadamobileappandroid;
+package org.judocanada.judocanadamobileappandroid.Model;
 
 import android.support.annotation.NonNull;
 

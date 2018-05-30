@@ -27,7 +27,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PostActivity" />
         <activity android:name=".VideoActivity" />
-        <activity android:name=".VideoListActivity" />
         <activity android:name=".LoginActivity"></activity>
     </application>
 

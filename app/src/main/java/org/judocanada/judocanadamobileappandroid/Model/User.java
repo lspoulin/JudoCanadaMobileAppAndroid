@@ -1,4 +1,4 @@
-package org.judocanada.judocanadamobileappandroid;
+package org.judocanada.judocanadamobileappandroid.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -10,7 +10,7 @@ import org.json.JSONObject;
  * Created by lspoulin on 2018-05-11.
  */
 
-class User implements Mappable, Parcelable {
+public class User implements Mappable, Parcelable {
     private int id, judoCanadaId;
     private String name, firstname, email, username, dateofbirth, password;
 

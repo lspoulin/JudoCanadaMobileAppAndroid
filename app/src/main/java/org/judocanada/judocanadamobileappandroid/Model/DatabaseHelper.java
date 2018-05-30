@@ -1,4 +1,4 @@
-package org.judocanada.judocanadamobileappandroid;
+package org.judocanada.judocanadamobileappandroid.Model;
 
 /**
  * Created by lspoulin on 2018-05-16.
@@ -6,9 +6,10 @@ package org.judocanada.judocanadamobileappandroid;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import org.judocanada.judocanadamobileappandroid.Model.User;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {

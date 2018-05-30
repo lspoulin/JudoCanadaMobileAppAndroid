@@ -1,17 +1,18 @@
-package org.judocanada.judocanadamobileappandroid;
+package org.judocanada.judocanadamobileappandroid.Model;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.judocanada.judocanadamobileappandroid.Model.Mappable;
+import org.judocanada.judocanadamobileappandroid.Model.Video;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by lspoulin on 2018-05-09.
  */
 
-public class VideoList implements Mappable{
+public class VideoList implements Mappable {
     int page;
     int limit;
     boolean hasMore;

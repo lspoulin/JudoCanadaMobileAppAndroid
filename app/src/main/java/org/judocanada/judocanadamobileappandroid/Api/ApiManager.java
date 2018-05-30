@@ -1,4 +1,4 @@
-package org.judocanada.judocanadamobileappandroid;
+package org.judocanada.judocanadamobileappandroid.Api;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,6 +15,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.judocanada.judocanadamobileappandroid.BuildConfig;
+import org.judocanada.judocanadamobileappandroid.Model.Mappable;
+import org.judocanada.judocanadamobileappandroid.R;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

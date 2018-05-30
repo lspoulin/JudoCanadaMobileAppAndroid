@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import org.judocanada.judocanadamobileappandroid.Model.UserManager;
+
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {

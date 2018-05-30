@@ -1,4 +1,4 @@
-package org.judocanada.judocanadamobileappandroid;
+package org.judocanada.judocanadamobileappandroid.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * Created by lspoulin on 2018-05-07.
  */
 
-class Post implements Mappable, Parcelable{
+public class Post implements Mappable, Parcelable{
     private final String GET_URL_RE = "(http|ftp|https):[/][/]([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?";
     private final String IS_IMAGE_RE = "^[^?]*\\.(jpg|jpeg|gif|png)";
     private final String REMOVE_AHREF = "<a.*?</a>";
