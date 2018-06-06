@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -54,7 +55,10 @@ public class Event implements Mappable, Comparable<Event>{
         java.text.DateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.CANADA);
 
         try {
-            this.dateEnd = format.parse(p1);
+            Calendar c = Calendar.getInstance();
+            c.setTime(format.parse(p1));
+            c.add(Calendar.HOUR_OF_DAY, -24);
+            this.dateEnd = c.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }
