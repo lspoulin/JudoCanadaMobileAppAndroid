@@ -108,9 +108,9 @@ public class Event implements Mappable, Comparable<Event>{
         Date date2 = this.dateStart;
         Date date1 = event.getDateStart();
         if (date1.after(date2)) {
-            return 1;
-        } else if (date1.before(date2)){
             return -1;
+        } else if (date1.before(date2)){
+            return 1;
         } else {
             return 0;
         }
