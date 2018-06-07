@@ -27,6 +27,8 @@ android {
             buildConfigField "String", "BASE_URL", "\"http://judocanada.org/wp-json/wp/v2/\""
             buildConfigField "String", "VIDEO_BASE_URL", "\"https://api.dailymotion.com/\""
             buildConfigField "String", "DAILYMOTION_BASE_URL", "\"https://www.dailymotion.com/\""
+            buildConfigField "String", "SAVIFOOT_BASE_URL", "\"https://www.savifoot.com/api/rest/\""
+
             applicationIdSuffix ".local"
             versionNameSuffix "-local"
             dimension "server"
@@ -35,7 +37,8 @@ android {
             buildConfigField "String", "USER_BASE_URL", "\"http://10.0.2.2:8888/JudoCanada/PHP/api.php/\""
             buildConfigField "String", "BASE_URL", "\"http://judocanada.org/wp-json/wp/v2/\""
             buildConfigField "String", "VIDEO_BASE_URL", "\"https://api.dailymotion.com/\""
-            buildConfigField "String", "DAILYMOTION_BASE_URL", "https://www.dailymotion.com"
+            buildConfigField "String", "DAILYMOTION_BASE_URL", "https://www.dailymotion.com/\""
+            buildConfigField "String", "SAVIFOOT_BASE_URL", "https://www.savifoot.com/api/rest/\""
             applicationIdSuffix ".outgoing"
             versionNameSuffix "-outgoing"
             dimension "server"

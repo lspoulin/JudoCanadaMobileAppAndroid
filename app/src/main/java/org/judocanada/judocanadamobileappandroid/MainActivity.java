@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                         R.drawable.videojudo_grey));
         menubar.put((ImageButton) findViewById(R.id.btnShop),
                 new Menuitem((TextView) findViewById(R.id.txtShop),
-                        new StatsFragment(),
+                        new ProductFragment(),
                         R.drawable.boutique_icon,
                         R.drawable.boutique_icon_grey));
 

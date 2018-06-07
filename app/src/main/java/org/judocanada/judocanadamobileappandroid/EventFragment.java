@@ -85,14 +85,15 @@ public class EventFragment extends Fragment implements AdapterView.OnItemSelecte
         spinnerYear = (Spinner)view.findViewById(R.id.spinnerYear);
 
         adapterMonth= new ArrayAdapter<String>(view.getContext(),
-                android.R.layout.simple_spinner_item, getMonthlist());
+                R.layout.spinner_item, getMonthlist());
 
-        adapterMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterMonth.setDropDownViewResource(R.layout.spinner_item);
 
+        final ArrayList<Integer>  yeararray = new ArrayList<Integer>(Arrays.asList(new Integer[]{Calendar.getInstance().get(Calendar.YEAR)}));
         adapterYear= new ArrayAdapter<Integer>(view.getContext(),
-                android.R.layout.simple_spinner_item,new ArrayList<Integer>(Arrays.asList(new Integer[]{Calendar.getInstance().get(Calendar.YEAR)})));
+                R.layout.spinner_item, yeararray);
 
-        adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterYear.setDropDownViewResource(R.layout.spinner_item);
 
         spinnerMonth.setAdapter(adapterMonth);
         spinnerMonth.setOnItemSelectedListener(this);
@@ -218,7 +219,7 @@ public class EventFragment extends Fragment implements AdapterView.OnItemSelecte
         private ArrayList<Event> main;
         public EventList(){
             setMain(new ArrayList<Event>());
-            setYears(new ArrayList<Integer>());
+            this.years = new ArrayList<Integer>();
         }
 
         private ArrayList<Event> currentSelection(ArrayList<Event> events, int year, int month) {

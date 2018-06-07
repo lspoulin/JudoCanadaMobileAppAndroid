@@ -33,6 +33,7 @@ public class ApiManager <T extends Mappable>{
     public static final String USER_ENDPOINT = "users/";
     public static final String EVENT_ENDPOINT = "events/";
     public static final String VIDEO_THUMBNAIL_ENDPOINT = "thumbnail/video/";
+    public static final String PRODUCT_ENDPOINT = "products/";
 
 
     // This is a convoluted way to create instances of the template type
@@ -55,6 +56,8 @@ public class ApiManager <T extends Mappable>{
     public static String getEventURL(){return  BuildConfig.USER_BASE_URL+EVENT_ENDPOINT;}
 
     public static String getVideoList(){return BuildConfig.VIDEO_BASE_URL+VIDEO_LIST_ENDPOINT;}
+
+    public static String getProductURL(){return BuildConfig.USER_BASE_URL+PRODUCT_ENDPOINT;}
 
     public static String getThumbnailURL(String id) {
         return BuildConfig.DAILYMOTION_BASE_URL + VIDEO_THUMBNAIL_ENDPOINT+id;
