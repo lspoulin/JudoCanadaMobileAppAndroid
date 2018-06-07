@@ -46,9 +46,9 @@ public class ProductFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
-                intent  = new Intent(getActivity(), PostActivity.class);
+                intent  = new Intent(getActivity(), ProductActivity.class);
 
-                intent.putExtra(PostActivity.POST, products.get(position));
+                intent.putExtra(ProductActivity.PRODUCT, products.get(position));
                 startActivity(intent);
             }
         });
