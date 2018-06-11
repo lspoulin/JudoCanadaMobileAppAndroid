@@ -20,8 +20,26 @@ public class MainActivity extends AppCompatActivity {
     private static ProgressBar progressBar;
     private HashMap<ImageButton, Menuitem> menubar;
     private int WHITE, GRAY;
-    public static final String PREFERENCES = "JudoCanadaApplicationPreferences";
-    public static final String PREFERENCES_USERNAME = "JudoCanadaApplicationPreferenceUserName";
+    private static final String SELECTED_FRAGMENT = "JudoCanadaApplication.selectedFragment";
+    private int selectedFragment = -1;
+
+
+    @Override
+    protected void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save the state of item position
+        outState.putInt(SELECTED_FRAGMENT, selectedFragment);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(final Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Read the state of item position
+        selectedFragment = savedInstanceState.getInt(SELECTED_FRAGMENT);
+        selectButton((ImageButton) findViewById(selectedFragment));
+    }
 
 
     @Override
@@ -35,24 +53,24 @@ public class MainActivity extends AppCompatActivity {
         menubar = new HashMap<ImageButton, Menuitem>();
         menubar.put((ImageButton) findViewById(R.id.btnNews),
                 new Menuitem((TextView) findViewById(R.id.txtNews),
-                        new PostsFragment(),
+                        PostsFragment.class,
                         R.drawable.news,
                         R.drawable.news_grey));
         menubar.put((ImageButton) findViewById(R.id.btnCalendar),
                 new Menuitem((TextView) findViewById(R.id.txtCalendar),
-                        new EventFragment(),
+                        EventFragment.class,
                         R.drawable.calendar,
                         R.drawable.calendar_grey));
         menubar.put((ImageButton) findViewById(R.id.btnVideo),
                 new Menuitem((TextView) findViewById(R.id.txtVideo),
-                        new VideoFragment(),
+                        VideoFragment.class,
                         R.drawable.videojudo,
                         R.drawable.videojudo_grey));
         menubar.put((ImageButton) findViewById(R.id.btnShop),
                 new Menuitem((TextView) findViewById(R.id.txtShop),
-                        new ProductFragment(),
-                        R.drawable.boutique_icon,
-                        R.drawable.boutique_icon_grey));
+                        ProductFragment.class,
+                        R.drawable.boutique_big,
+                        R.drawable.boutique_big_gray));
 
         for (ImageButton imageButton : menubar.keySet()) {
             imageButton.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +80,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        selectButton((ImageButton) findViewById(R.id.btnNews));
+        if (selectedFragment == -1)
+            selectedFragment = R.id.btnNews;
+
+        selectButton((ImageButton) findViewById(selectedFragment));
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -83,13 +104,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectButton(ImageButton button) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        selectedFragment = ((View)button).getId();
 
         for (ImageButton key : menubar.keySet()) {
             Menuitem item = menubar.get(key);
             if (key == button) {
                 item.label.setTextColor(WHITE);
                 key.setImageResource(item.drawableSelected);
-                transaction.replace(R.id.mainFragment, item.fragment);
+                try {
+                    transaction.replace(R.id.mainFragment, (Fragment) item.fragment.newInstance());
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             } else {
                 item.label.setTextColor(GRAY);
                 key.setImageResource(item.drawableUnselected);
@@ -107,9 +135,9 @@ public class MainActivity extends AppCompatActivity {
     private class Menuitem {
         int drawableSelected, drawableUnselected;
         TextView label;
-        Fragment fragment;
+        Class fragment;
 
-        Menuitem(TextView label, Fragment fragment, int drawableSelected, int drawableUnselected) {
+        Menuitem(TextView label, Class fragment, int drawableSelected, int drawableUnselected) {
             this.label = label;
             this.drawableSelected = drawableSelected;
             this.drawableUnselected = drawableUnselected;
