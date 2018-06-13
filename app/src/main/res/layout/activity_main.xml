@@ -100,15 +100,33 @@ android:layout_height="match_parent">
             app:srcCompat="@drawable/video_grey"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimary"/>
-
-        <ImageButton
-            android:id="@+id/btnShop"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            app:srcCompat="@drawable/boutique_icon_grey"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"/>
+            android:layout_height="match_parent"
+            android:layout_weight="0.25">
+            <ImageButton
+                android:id="@+id/btnShop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/boutique_icon_grey"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/cartProductCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/btnShop"
+                android:layout_toEndOf="@+id/btnShop"
+                android:layout_toRightOf="@+id/btnShop"
+                android:background="@drawable/rounded_corner"
+                android:padding="5dip"
+                android:text="1" />
+
+        </RelativeLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -175,6 +193,7 @@ android:layout_height="match_parent">
     android:id="@+id/progressBar"
 
     android:layout_centerInParent="true" />
+
 
 </RelativeLayout>
 

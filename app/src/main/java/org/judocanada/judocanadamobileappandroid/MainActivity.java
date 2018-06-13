@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.judocanada.judocanadamobileappandroid.Model.Cart;
 import org.judocanada.judocanadamobileappandroid.Model.UserManager;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private static ProgressBar progressBar;
+    private static TextView cartProductCount;
     private HashMap<ImageButton, Menuitem> menubar;
     private int WHITE, GRAY;
     private static final String SELECTED_FRAGMENT = "JudoCanadaApplication.selectedFragment";
@@ -26,10 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-
         // Save the state of item position
         outState.putInt(SELECTED_FRAGMENT, selectedFragment);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         selectedFragment = savedInstanceState.getInt(SELECTED_FRAGMENT);
         selectButton((ImageButton) findViewById(selectedFragment));
     }
+
 
 
     @Override
@@ -80,12 +82,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        if (selectedFragment == -1)
-            selectedFragment = R.id.btnNews;
-
-        selectButton((ImageButton) findViewById(selectedFragment));
+        if (savedInstanceState == null)
+            selectButton((ImageButton) findViewById(R.id.btnNews));
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        cartProductCount = (TextView) findViewById(R.id.cartProductCount);
+        setCartProductCount();
 
         ImageButton logout = (ImageButton) findViewById(R.id.btnUser);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +103,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public static void setCartProductCount() {
+        if (cartProductCount == null) return;
+        if(Cart.getInstance().getCount()==0){
+            cartProductCount.setVisibility(View.GONE);
+        }
+        else{
+            cartProductCount.setVisibility(View.VISIBLE);
+            cartProductCount.setText(Cart.getInstance().getCount()+"");
+        }
     }
 
     private void selectButton(ImageButton button) {

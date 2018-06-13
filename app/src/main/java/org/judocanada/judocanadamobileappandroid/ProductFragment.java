@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -19,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import org.judocanada.judocanadamobileappandroid.Api.ApiHelper;
 import org.judocanada.judocanadamobileappandroid.Api.Callback;
+import org.judocanada.judocanadamobileappandroid.Model.Cart;
 import org.judocanada.judocanadamobileappandroid.Model.Post;
 import org.judocanada.judocanadamobileappandroid.Model.Product;
 
@@ -97,16 +99,28 @@ public class ProductFragment extends Fragment {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.post_row, null);
-            TextView title = (TextView) view.findViewById(R.id.txtTitle);
-            TextView exerpt = (TextView) view.findViewById(R.id.txtExerpt);
-            ImageView image = (ImageView) view.findViewById(R.id.imgPost);
+            view = getLayoutInflater().inflate(R.layout.product_row, null);
+            TextView name = (TextView) view.findViewById(R.id.txtName);
+            TextView description = (TextView) view.findViewById(R.id.txtDescription);
+            TextView price = (TextView) view.findViewById(R.id.txtPrice);
+            ImageView image = (ImageView) view.findViewById(R.id.imgProduct);
+            ImageButton addToCart = (ImageButton) view.findViewById(R.id.buttonAddtoCart);
 
 
-            Product product = products.get(i);
-            title.setText(product.getName());
-            exerpt.setText(product.getShortDescription());
+            final Product product = products.get(i);
+            name.setText(product.getName());
+            description.setText(product.getShortDescription());
+            price.setText(product.getRegularPriceWithoutTax()+"");
             Picasso.get().load(product.getImageUrl()).into(image);
+
+            addToCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Cart.getInstance().addToCart(product.getEntityId(), 1);
+                    MainActivity.setCartProductCount();
+                }
+            });
+
             return view;
         }
     }
