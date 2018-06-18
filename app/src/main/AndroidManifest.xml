@@ -28,7 +28,8 @@
         <activity android:name=".PostActivity" />
         <activity android:name=".VideoActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".ProductActivity"></activity>
+        <activity android:name=".ProductActivity" />
+        <activity android:name=".CartActivity"></activity>
     </application>
 
 </manifest>

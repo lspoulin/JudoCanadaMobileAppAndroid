@@ -22,23 +22,27 @@ public class Cart {
 
     }
 
-    public void addToCart(int entityId, int qte) {
+    public void addToCart(Product product, int qte) {
         for(Products p : products){
-            if (p.entityId == entityId){
+            if (p.product.getEntityId() == product.getEntityId()){
                 p.quantity+=qte;
                 return;
             }
         }
-        products.add(new Products(entityId, qte));
+        products.add(new Products(product, qte));
+    }
+
+    public Products getProducts(int i){
+        return products.get(i);
     }
 
 
-    private class Products{
-        int entityId;
-        int quantity;
+    public class Products{
+        public Product product;
+        public int quantity;
         public Products(){}
-        public Products(int entityId, int qte){
-            this.entityId = entityId;
+        public Products(Product product, int qte){
+            this.product = product;
             this.quantity = qte;
         }
 

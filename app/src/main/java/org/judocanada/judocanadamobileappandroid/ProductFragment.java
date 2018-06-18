@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -24,6 +25,7 @@ import org.judocanada.judocanadamobileappandroid.Model.Cart;
 import org.judocanada.judocanadamobileappandroid.Model.Post;
 import org.judocanada.judocanadamobileappandroid.Model.Product;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ProductFragment extends Fragment {
@@ -32,6 +34,7 @@ public class ProductFragment extends Fragment {
     private CustomAdapter customAdapter;
     private ApiHelper apiHelper;
     private ProgressBar progressBar;
+    private Button checkout;
 
     public ProductFragment() {
         // Required empty public constructor
@@ -58,8 +61,20 @@ public class ProductFragment extends Fragment {
         apiHelper = new ApiHelper(getActivity().getApplicationContext());
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mainListView = (ListView) view.findViewById(R.id.mainListView);
+        checkout = (Button) view.findViewById(R.id.checkout);
         customAdapter = new  CustomAdapter();
         mainListView.setAdapter(customAdapter);
+
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+                intent  = new Intent(getActivity(), CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        checkout.setVisibility((Cart.getInstance().getCount()>0)?View.VISIBLE:View.GONE);
 
         MainActivity.showProgressBar(true);
         apiHelper.getProducts(getActivity(), new Callback() {
@@ -110,14 +125,16 @@ public class ProductFragment extends Fragment {
             final Product product = products.get(i);
             name.setText(product.getName());
             description.setText(product.getShortDescription());
-            price.setText(product.getRegularPriceWithoutTax()+"");
+            DecimalFormat prices = new DecimalFormat("$0.00");
+            price.setText(prices.format(product.getRegularPriceWithoutTax()));
             Picasso.get().load(product.getImageUrl()).into(image);
 
             addToCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Cart.getInstance().addToCart(product.getEntityId(), 1);
+                    Cart.getInstance().addToCart(product, 1);
                     MainActivity.setCartProductCount();
+                    checkout.setVisibility((Cart.getInstance().getCount()>0)?View.VISIBLE:View.GONE);
                 }
             });
 
